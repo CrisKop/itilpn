@@ -1,0 +1,47 @@
+
+
+
+<script>
+    const slider = document.querySelector(".slider");
+    const prevButton = document.querySelector(".prev-button");
+    const nextButton = document.querySelector(".next-button");
+    const slides = document.querySelectorAll(".slide");
+    let currentIndex = 0;
+    let isAnimating = false;
+
+    function showSlide(index) {
+        slider.style.transition = "transform 0.5s ease";
+        slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    function nextSlide() {
+        if (!isAnimating) {
+            currentIndex = (currentIndex + 1) % slides.length;
+            showSlide(currentIndex);
+            isAnimating = true;
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
+        }
+    }
+
+    function prevSlide() {
+        if (!isAnimating) {
+            currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+            showSlide(currentIndex);
+            isAnimating = true;
+            setTimeout(() => {
+                isAnimating = false;
+            }, 500);
+        }
+    }
+
+    nextButton.addEventListener("click", nextSlide);
+    prevButton.addEventListener("click", prevSlide);
+
+    // Auto avance cada 4 segundos
+    setInterval(nextSlide, 4000);
+
+    // Mostrar la primera diapositiva al cargar la página
+    showSlide(currentIndex);
+</script>

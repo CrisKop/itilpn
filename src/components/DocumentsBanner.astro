@@ -1,0 +1,36 @@
+<section>
+    <section class="imagencontainer">
+        <img src="/img/bannerdocuments.png" alt="Imagen 1">
+        <div class="overlay">Documentos</div>
+    </section>
+</section>
+
+<style>
+ .imagencontainer {
+    position: relative;
+    width: 100vw;
+    height: 50vh;
+}
+
+.imagencontainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    display: flex; /* Utiliza flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    color: white; /* Cambia el color del texto a blanco */
+    font-size: 4rem; /* Ajusta el tamaño del texto según sea necesario */
+    font-weight: 600;
+}
+</style>

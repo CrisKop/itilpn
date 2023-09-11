@@ -1,0 +1,325 @@
+---
+import SliderScript from './Slider2.html'
+import { glob } from 'glob'
+
+async function ImageFetcher(pattern: string) {
+  const files = glob.sync(pattern, { posix: true })
+  const imagePromises = files.map(async (file) => {
+    const src = file.replace('public', '')
+    return { src }
+  })
+
+  const imageFiles = await Promise.all(imagePromises)
+
+  imageFiles.sort((a, b) => a.src.localeCompare(b.src))
+
+  return imageFiles
+}
+
+const centralimageFiles = await ImageFetcher('public/gallery/central/*.{jpg,,jpeg,png,webp}')
+const cristoreyimageFiles = await ImageFetcher('public/gallery/cristorey/*.{jpg,,jpeg,png,webp}')
+const marabelimageFiles = await ImageFetcher('public/gallery/marabel/*.{jpg,,jpeg,png,webp}')
+
+const { title, description } = Astro.props
+---
+
+<div id="main">
+
+
+  <section class="seccion">
+
+    <div>
+  <h1 class="hover-underline-animation">Sede Central</h1>
+</div>
+
+<div class="line-container">
+  <div class="dotted-line"></div>
+  <i class="star"></i>
+</div>
+
+
+  <section class="imagescontainer">
+
+  {
+    centralimageFiles.map((img) => (
+      <article class="images">
+        <a class="image">
+          <img
+            src={img.src}
+            alt="Astro Multiverse"
+          />
+        </a>
+        <h2>{title}</h2>
+        <p>{description}</p>
+      </article>
+    ))
+  }
+  </section>
+
+</section>
+
+
+<section class="seccion">
+  <div>
+    <h1 class="hover-underline-animation">Sede Cristo Rey</h1>
+  </div>
+
+  <div class="line-container">
+    <div class="dotted-line"></div>
+    <i class="star"></i>
+  </div>
+  <section class="imagescontainer">
+    {
+      cristoreyimageFiles.map((img) => (
+        <article class="images">
+          <a class="image">
+            <img
+              src={img.src}
+              alt="Astro Multiverse"
+            />
+          </a>
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </article>
+      ))
+    }
+    </section>
+    </section>
+
+    <section class="seccion">
+      <div>
+        <h1 class="hover-underline-animation">Sede Marabel</h1>
+      </div>
+      
+
+      <div class="line-container">
+        <div class="dotted-line"></div>
+        <i class="star"></i>
+      </div>
+    <section class="imagescontainer">
+      {
+        marabelimageFiles.map((img) => (
+          <article class="images">
+            <a class="image">
+              <img
+                src={img.src}
+                alt="Astro Multiverse"
+              />
+            </a>
+            <h2>{title}</h2>
+            <p>{description}</p>
+          </article>
+        ))
+      }
+      </section>
+      </section>
+</div>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+  <span class="close" onclick="closePopup()">&times;</span>
+  <div class="slider2">
+      <img class="imagenpop" src="" alt="">
+  </div>
+</div>
+
+<SliderScript/>
+
+
+<style>
+
+  div{
+    text-align: center;
+  }
+
+h1 {
+    color: var(--text-color);
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    position: relative; /* Para posicionar el subrayado */
+    display: inline-block; /* Para que el subrayado abarque solo el contenido */
+}
+
+h1::before {
+    content: "";
+    position: absolute;
+    width: 100%; /* Ancho inicial del subrayado (100% del texto) */
+    height: 2px; /* Grosor del subrayado */
+    bottom: 0; /* Alinea el subrayado en la parte inferior */
+    left: 0; /* Inicialmente, el subrayado comienza desde la izquierda */
+    background-color: var(--text-color); /* Color del subrayado */
+    transform: scaleX(1); /* Inicialmente, el subrayado tiene escala 0 (invisible) */
+    transform-origin: left center; /* Escalar desde la derecha */
+    transition: transform 0.3s; /* Transición para la animación de escala */
+}
+
+h1:hover::before {
+    transform: scaleX(0); /* Al hacer hover, el subrayado se escala a 100% */
+    transform-origin: right center; /* Escalar desde la izquierda (derecha a izquierda) */
+}
+
+.line-container {
+    position: relative;
+    margin-bottom: -30px;
+}
+
+.dotted-line {
+    height: 2px;
+    background: transparent;
+    border-bottom: 2px dotted var(--title-color);
+    margin-right: 1em;
+}
+
+.star {
+    font-size: 24px;
+    color: var(--title-color);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-300%);
+    right: 0; /* Alinea la estrella a la derecha del contenedor */
+}
+
+.star {
+	 position: relative;
+	 display: inline-block;
+	 width: 0;
+	 height: 0;
+	 margin-left: 0.9em;
+	 margin-right: 0.9em;
+	 margin-bottom: 1.2em;
+	 border-right: 0.3em solid transparent;
+	 border-bottom: 0.7em solid var(--title-color);
+	 border-left: 0.3em solid transparent;
+	/* Controlls the size of the stars. */
+	 font-size: 24px;
+}
+ .star:before, .star:after {
+	 content: '';
+	 display: block;
+	 width: 0;
+	 height: 0;
+	 position: absolute;
+	 top: 0.6em;
+	 left: -1em;
+	 border-right: 1em solid transparent;
+	 border-bottom: 0.7em solid var(--title-color);
+	 border-left: 1em solid transparent;
+	 transform: rotate(-35deg);
+}
+ .star:after {
+	 transform: rotate(35deg);
+}
+ 
+
+
+   
+  #main {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+  }
+
+  .seccion{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .imagescontainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 90vw;
+    max-width: 1300px;
+
+  }
+
+  article{
+    flex-grow: 1;
+    max-width: 300px;
+  }
+
+  .images {
+        overflow: hidden;
+  }
+
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image{
+        width: 90vw;
+        max-width: 550px;
+        overflow: hidden;
+    }
+
+    .image:hover{
+        cursor: pointer;
+        filter: brightness(0.7);
+    }
+
+    .image:hover img {
+    transform: scale(1.5);
+    transition: transform .5s;
+}
+
+img{
+    transition: transform .5s;
+}
+
+  /* Estilos para el popup */
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    overflow: auto;
+}
+
+.slider2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilos para la imagen en el popup */
+.imagenpop {
+    max-width: 90vw;
+    max-height: 90vh; /* Máximo del 90% del alto de la ventana gráfica */
+    width: auto; /* Ajusta el ancho de la imagen automáticamente */
+    height: auto; /* Ajusta la altura de la imagen automáticamente */
+    object-fit: contain; /* Mantiene la relación de aspecto sin distorsión */
+    cursor: zoom-out;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+
+.slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+</style>

@@ -1,0 +1,95 @@
+---
+import SliderScript from './Slider.html'
+
+import { Image } from 'astro:assets'
+import { glob } from 'glob'
+
+async function ImageFetcher(pattern: string) {
+  const files = glob.sync(pattern, { posix: true })
+  const imagePromises = files.map(async (file) => {
+    const src = file.replace('public', '')
+    return { src }
+  })
+
+  const imageFiles = await Promise.all(imagePromises)
+
+  imageFiles.sort((a, b) => a.src.localeCompare(b.src))
+
+  return imageFiles
+}
+
+const imageFiles = await ImageFetcher('public/img/slider/*.{jpg,,jpeg,png,webp}')
+---
+
+<section>
+    <section class="slider-container">
+        <div class="slider">
+            {
+                imageFiles.map((img) => (
+                <section class="slide">
+                <img src={img.src} alt="Imagen 1">
+            </section>
+                ))
+            }
+            <!-- Agrega más imágenes según sea necesario -->
+        </div>
+        <button class="prev-button">🡸</button>
+        <button class="next-button">🡺</button>
+    </section>
+    
+    
+    
+    
+ 
+ <SliderScript/>
+</section>
+
+<style>
+    section{
+        width: 100vw;
+        height: 70vh;
+    }
+
+    .slider-container {
+    width: 100vw;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease; /* Agregamos una transición aquí */
+}
+
+.slide {
+    flex: 0 0 100%;
+    transition: transform 0.5s ease; /* Agregamos una transición aquí */
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* object-fit: contain; */
+}
+
+.prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+</style>

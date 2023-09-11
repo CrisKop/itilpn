@@ -1,0 +1,59 @@
+---
+import { glob } from 'glob'
+
+async function ImageFetcher(pattern: string) {
+  const files = glob.sync(pattern, { posix: true })
+  const imagePromises = files.map(async (file) => {
+    const src = file.replace('public', '')
+    return { src }
+  })
+
+  const imageFiles = await Promise.all(imagePromises)
+
+  imageFiles.sort((a, b) => a.src.localeCompare(b.src))
+
+  return imageFiles
+}
+
+const imageFiles = await ImageFetcher('public/img/documents/*.{jpg,,jpeg,png,webp}')
+---
+
+<section>
+
+    <div>
+        <h1>Sección interior</h1>
+
+        <section class="images">
+
+            <div>
+            {
+                imageFiles.map((img) => (
+                <div class="image">
+              <img src={img.src} alt="" loading="lazy">
+              </div>
+                ))
+          }
+        </div>
+        </section>
+
+    </div>
+
+</section>
+
+<style>
+        h1{
+        color: var(--title-color);
+        font-weight: 700;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+
+    .images div{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+</style>

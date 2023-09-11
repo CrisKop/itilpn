@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Footer from '../components/Footer.astro';
+---
+
+<Layout title="404 Not found">
+	<main>
+       
+       
+        <div class="404">
+            <h1>Página Inexistente</h1>
+        </div>
+
+        <Footer/>
+	</main>
+</Layout>
+
+<style>
+    main{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        justify-content: center;
+    }
+
+    div{
+        display: flex;
+        width: 100vw;
+        justify-content: center;
+        align-items: center;
+        height: 52vh;
+    }
+
+    h1{
+        color: var(--text-color);
+        font-weight: 700;
+        font-size: 3rem;
+        text-align: center;
+    }
+</style>

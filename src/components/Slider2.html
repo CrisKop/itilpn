@@ -1,0 +1,71 @@
+<script>
+    function openPopup(imgSrc) {
+        const popup = document.getElementById("popup");
+        const slider = document.querySelector(".slider2");
+        slider.innerHTML = ""; // Limpia el contenido anterior del slider
+
+        // Agrega la imagen clickeada al slider del popup
+        const newImage = document.createElement("img");
+        newImage.src = imgSrc;
+        newImage.classList.add("imagenpop"); // Agrega la clase "imagenpop" a la nueva imagen
+        slider.appendChild(newImage);
+
+        popup.style.display = "block";
+
+        // Ajusta el tamaño de la imagen dentro del popup
+        adjustImageSize();
+    }
+
+    // Función para ajustar el tamaño de la imagen dentro del popup
+    function adjustImageSize() {
+        const popup = document.getElementById("popup");
+        const images = popup.querySelectorAll(".imagenpop");
+
+        images.forEach((image) => {
+            const naturalWidth = image.naturalWidth;
+            const naturalHeight = image.naturalHeight;
+
+            if (naturalWidth > window.innerWidth * 0.9) {
+                image.style.width = "90vw";
+                image.style.height = "auto";
+            }
+
+            if (naturalHeight > window.innerHeight * 0.9) {
+
+                if(window.innerWidth > 1250){
+                image.style.height = "90vh";
+                image.style.width = "auto";
+                }
+            }
+        });
+    }
+
+    // Función para cerrar el popup
+    function closePopup() {
+        const popup = document.getElementById("popup");
+        popup.style.display = "none";
+    }
+
+    // Agrega un evento clic a cada imagen de .images
+    const imageContainers = document.querySelectorAll(".images .image");
+    imageContainers.forEach((container) => {
+        const image = container.querySelector("img");
+        image.addEventListener("click", () => {
+            openPopup(image.src);
+        });
+    });
+
+    // Cierra el popup al hacer clic en el botón de cierre
+    const closeBtn = document.querySelector(".close");
+    closeBtn.addEventListener("click", closePopup);
+
+    // Cierra el popup al presionar la tecla Esc
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+            closePopup();
+        }
+    });
+
+    // Llama a la función de ajuste de tamaño al cambiar el tamaño de la ventana
+    window.addEventListener("resize", adjustImageSize);
+</script>
