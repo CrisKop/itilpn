@@ -1,42 +1,61 @@
-# Astro Starter Kit: Basics
+# Guía para Configurar y Ejecutar el Proyecto
+
+¡Bienvenido al proyecto! Sigue estos pasos para configurarlo y ejecutarlo en tu entorno local.
+
+## Paso 1: Clonar el Proyecto
+
+Para comenzar, clona el repositorio desde GitHub utilizando el siguiente enlace:
+
+https://github.com/CrisKop/itilpn.git
+
+Puedes clonar el repositorio ejecutando el siguiente comando en tu terminal:
 
 ```
-npm create astro@latest -- --template basics
+git clone https://github.com/CrisKop/itilpn.git
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Paso 2: Instalar las Dependencias
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+Una vez que hayas clonado el proyecto, navega hasta la carpeta del proyecto en tu terminal y utiliza pnpm para instalar las dependencias:
 
 ```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+cd itilpn
+```
+```
+pnpm install
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Paso 3: Iniciar el Proyecto Localmente
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Ahora que todas las dependencias están instaladas, puedes iniciar el proyecto localmente. Ejecuta el siguiente comando:
 
-Any static assets, like images, can be placed in the `public/` directory.
+```
+npm run dev
+```
 
-## 🧞 Commands
+Esto iniciará la aplicación en tu entorno de desarrollo local. Abre tu navegador web y accede a `http://localhost:4321` para ver la aplicación en acción.
+
+## Paso 4: Despliegue con Vercel (Opcional)
+
+Si deseas desplegar la aplicación en línea, puedes utilizar Vercel. Para ello, sigue estos pasos:
+
+1. Instala la herramienta Vercel globalmente (solo necesitas hacer esto una vez):
+
+```
+npm install -g vercel
+```
+
+2. Luego, despliega la aplicación con el siguiente comando:
+
+```
+vercel
+```
+
+Sigue las instrucciones de Vercel para configurar tu proyecto y desplegarlo en línea.
+
+¡Listo! Ahora tienes el proyecto configurado y ejecutándose en tu entorno local, y puedes desplegarlo en línea si así lo deseas.
+
+## Comandos de astro
 
 All commands are run from the root of the project, from a terminal:
 
@@ -52,3 +71,11 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+<br>
+<div style="text-align:center;">
+  <img src="https://criskop.com/img/corona.png" alt="Corona" style="width: 200px;" />
+   <p style="font-weight:bold; font-size: 60px;">CrisKop</p>
+</div>
+
+
